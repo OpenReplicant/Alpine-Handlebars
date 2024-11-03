@@ -1,0 +1,30 @@
+{
+  "name": "alpine-handlebars",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node hyper-server.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "MIT",
+  "description": "HBS Helpers for Alpine.JS",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "express": "^4.21.0",
+    "express-handlebars": "^8.0.1",
+    "handlebars": "^4.7.8",
+    "hyper-express": "^6.17.2",
+    "node-ipc": "^12.0.0",
+    "stringify-object": "^5.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.24.0",
+    "@types/stringify-object": "^4.0.5",
+    "@types/argparse": "^2.0.16",
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4"
+  }
+}

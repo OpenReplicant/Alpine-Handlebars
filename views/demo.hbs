@@ -1,0 +1,33 @@
+<!-- Alpine.js Component with x-data -->
+{{#x 'contextData'}}
+{{$ 'title' 'h1'}}
+
+{{toggle 'showText'}}
+{{#show 'showText'}}
+{{$ 'message' e='p'}}
+{{/show}}
+
+<!-- Conditional logic using x-if, x-else-if, and x-else -->
+{{#x-if 'conditionA'}}<p>Condition A is true!</p>
+{{elif 'conditionB'}}<p>Condition B is true!</p>
+{{els}}<p>Neither Condition A nor Condition B is true.</p>
+{{/x-if}}
+
+<!-- Looping through an array with x-for -->
+<ul>
+    {{#for 'items'}}
+        {{$ 'i' e='li'}}
+    {{/for}}
+</ul>
+
+<!-- Input fields with x-model -->
+<div>
+    {{in 'text' 'textInput'}}
+    <p>Input value: {{$ 'textInput'}}</p>
+</div>
+
+<!-- Select dropdown with x-in -->
+<div>
+    {{in 'select' 'selectedOption' data='options'}}
+</div>
+{{/x}}

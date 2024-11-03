@@ -1,0 +1,41 @@
+{{#alpine 'alpineData' persist="*"}}
+<h2>Counter Example</h2>
+{{#x-show "true"}}
+    {{$$ "count" e="span"}}
+    <button @click="count++">Increment {{$ "count"}}</button>
+{{/x-show}}
+
+<h2>Todo List Example</h2>
+{{#for "todos"}}
+    <div>
+        {{$ "i"}}
+        <button @click="todos = todos.filter(t => t !== i)">Remove</button>
+    </div>
+{{/for}}
+
+<h2>Conditional Rendering Example</h2>
+{{#? "count > 5"}}
+    <p>Count is greater than 5!</p>
+{{?? "count > 2 && count < 5"}}
+    <p>Count is greater than 2 but not greater than 5.</p>
+{{???}}
+    <p>Count is 2 or less.</p>
+{{/?}}
+
+
+<h2>Fetch Example</h2>
+{{ajax "toUpdate" '/demo' show='Click'}}
+<div>will update: {{htm 'toUpdate'}}</div>
+
+<h2>Input Example</h2>
+{{in "text" "newTodo"}}
+{{#on 'click' "todos.push(newTodo); newTodo = ''" }}Add Todo{{/on}}
+
+<h2>Select Example</h2>
+{{in "select" "selectedTodo" data="todos"}}
+
+<br><br>
+
+{{$f 'GET' '/demo' 'span'}}
+
+{{/alpine}}

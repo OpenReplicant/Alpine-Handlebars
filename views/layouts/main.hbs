@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+
+    <!--LOAD ALPINE PLUGINS BEFORE ALPINE-->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/hankhank10/alpine-fetch@main/alpine-fetch.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <!--ALPINE LAST-->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+    <!--<script src="https://cdn.tailwindcss.com"></script>-->
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+
+    {{{head}}} <!-- Optional head content placeholder -->
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Alpine.js Helpers Demo</h1>
+      {{{body}}}
+    </div>
+
+    <!-- Load any additional JavaScript files (optional) -->
+    {{#each scripts}}
+    <script src="{{this}}"></script>
+    {{/each}}
+
+  </body>
+</html>
