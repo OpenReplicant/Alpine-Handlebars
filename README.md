@@ -246,11 +246,11 @@ Creates an element that reacts to any browser event.
 
 **Usage:**
 ```JS
-{{#x-on 'click' "alert('clicked')"}}Clickable{{/toggle}}
+{{#x-on 'click' "alert('clicked')"}}Clickable{{/x-on}}
 ```
 
 - **`1`**: Event to react to
-- **`2`**: Event to react to
+- **`2`**: JS to eval
 - **`e=`**: HTML element type (default: button)
 - **`when=`**: Interaction event (default: click)
 
@@ -281,7 +281,8 @@ Touch this div{{/toggle}}
 
 ### **`x-fetch` / `$f`**  
 Fetches HTML content dynamically using the Alpine `$fetch` plugin. Basically, client-side partials or components which can be conditionally rendered. (Replaces contents of element.)
-NOTE: Must include (1.3kB) client-side script from https://github.com/hankhank10/alpine-fetch
+
+NOTE: Must include (1.3kB) client-side script from https://github.com/hankhank10/alpine-fetch ...and lazy-loading requires the x-intersect plugin script.
 
 
 **Usage:**
