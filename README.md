@@ -314,7 +314,7 @@ NOTE: Must include (1.3kB) client-side script from https://github.com/hankhank10
 
  OR
 
-{{a$ 'prop' '/api/json' json='some.property' show='Click Me'}}
+{{$a 'prop' '/api/json' json='some.property' show='Click Me'}}
  ... will update: {{$ 'prop'}}
 ```
 
