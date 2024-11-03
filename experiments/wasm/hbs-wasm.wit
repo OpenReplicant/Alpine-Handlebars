@@ -1,5 +1,0 @@
-package local:handlebars;
-
-world handlebars-world {
-  //export input: func();
-}
