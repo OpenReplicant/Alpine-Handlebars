@@ -43,14 +43,15 @@ Learn about Handlebars.js: https://handlebarsjs.com/guide
 
 ## **Table of Contents**
 
-1. [Alpine.js Context](#context-helpers)
+1. [Alpine.js Context](#reactive-data-helper)
 2. [Content Binding](#content-binding-helpers)
 3. [Conditional Rendering](#conditional-rendering-helpers)
 4. [Iteration](#iteration-helpers)
 5. [Input Binding](#input-binding-helpers)
-6. [Toggle](#toggle-helpers)
-7. [Data Fetching](#data-fetching-helpers)
-8. [HTTP Button](#button-action-helpers)
+6. [Event Binding](#event-binding-helper)
+7. [Toggle](#toggle-helper)
+8. [Data Fetching](#data-fetching-helper)
+9. [AJAX Button](#ajax-button-helper)
 
 #
 **Note: Attributes Handling**
@@ -147,6 +148,7 @@ OR
 ```
 
 - **`1`**: Condition to evaluate for rendering.
+- **`show=`**: Optional content to render. (TODO: add data-binding as an option)
 
 ---
 
@@ -157,13 +159,14 @@ Provides additional conditions in an `x-if` block.
 ```JS
 {{#x-if 'isVisible'}}Primary content
 
-  {{elif 'anotherCondition'}}Alternate content
-  {{?? 'yetAnotherCondition'}}Some content
+  {{elif 'anotherCondition' show="Alternate content"}}
+  {{#?? 'yetAnotherCondition'}}Some content{{/??}}
 
 {{/x-if}}
 ```
 
 - **`1`**: Condition to evaluate for rendering.
+- **`show=`**: Optional content to render. (TODO: add data-binding as an option)
 
 ---
 
@@ -173,18 +176,19 @@ Renders fallback content if all previous conditions fail. (Handlebars uses 'else
 **Usage:**
 ```JS
 {{#x-if 'isTrue'}}Primary content
-  {{x-elseif 'elseifCondition'}}Other content
-  {{x-else}}Fallback content
+  {{x-elseif 'elseifCondition' show="Other content"}}
+  {{#els}}Fallback content{{/els}}
 {{/x-if}}
 
 OR
 
 {{#? 'isTrue'}}Primary content
-  {{???}}Fallback content
+  {{#???}}{{$$ 'fallback.content'}}{{/???}}
 {{/?}}
 ```
 
 - **`1`**: Condition to evaluate for rendering.
+- **`show=`**: Optional content to render. (TODO: add data-binding as an option)
 
 ---
 
@@ -223,7 +227,7 @@ OR
  classes="option css"
  class="select css"}}
 
-OR (select & textarea elements wrap)
+OR (select & textarea elements wrap, optionally)
 {{#input select 'selectedModel' data="options"}}
   {{x-text 'v'}}
 {{/input}}
@@ -239,7 +243,7 @@ OR
 
 ---
 
-## **x-on Helper**
+## **Event Binding Helper**
 
 ### **`x-on` / `on`**  
 Creates an element that reacts to any browser event.
@@ -301,7 +305,7 @@ OR
 
 ---
 
-## **HTTP Button Helper**
+## **AJAX Button Helper**
 
 ### **`ajax` / `$a`**  
 Creates a button that triggers a data fetch and updates a variable with the result using the Alpine `$fetch` plugin. (Replaces target Alpine data property which could be bound to any section of HTML.)
