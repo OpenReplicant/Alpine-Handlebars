@@ -253,10 +253,9 @@ Creates an element that reacts to any browser event.
 {{#x-on 'click' "alert('clicked')"}}Clickable{{/x-on}}
 ```
 
-- **`1`**: Event to react to
-- **`2`**: JS to eval
+- **`1`**: Interaction event it reacts to
+- **`2`**: Javascript to evaluate
 - **`e=`**: HTML element type (default: button)
-- **`when=`**: Interaction event (default: click)
 
 ---
 
@@ -308,7 +307,7 @@ OR
 ## **AJAX Button Helper**
 
 ### **`ajax` / `$a`**  
-Creates a button that triggers a data fetch and updates a variable with the result using the Alpine `$fetch` plugin. (Replaces target Alpine data property which could be bound to any section of HTML.)
+Creates a button that triggers a data fetch and updates a variable with the result using the Alpine `$fetch` plugin. (Replaces target Alpine data property which could be bound to any section of HTML. Compare to HTMX.)
 NOTE: Must include (1.3kB) client-side script from https://github.com/hankhank10/alpine-fetch
 
 **Usage:**
