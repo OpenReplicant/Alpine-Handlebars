@@ -5,30 +5,33 @@ import stringifyObject from 'stringify-object';
 /////////// Helpers need helpers too!
 function normalize(args) { //Helpers interfaces can be hard to predict
     const options = args[args.length - 1];
-    const pos = Array.prototype.slice.call(args, 0, args.length - 1);
+    //const pos = Array.prototype.slice.call(args, 0, args.length - 1);
+    // Avoid slice if possible - could use array access if pattern is predictable
+    const pos = args.length > 1 ? Array.prototype.slice.call(args, 0, -1) : [];
 
     return {
-        i: pos[0],  // First positional argument (easy ref)
-        pos: pos,   // All positional arguments
+        i: args[0],  // First positional argument (easy ref)
+        pos,   // All positional arguments
         ops: options,  // Handlebars options object
-        inner: options.fn ? options.fn(this) : null,  // Inner content for block helpers
-        hash: options.hash || {}  // Hash arguments (key='val' as map)
+        //inner: options.fn ? options.fn(this) : null,  // Inner content for block helpers
+        inner: options.fn?.call(this),  // Optional chaining more efficient
+        hash: options.hash  // Hash arguments (key='val' as map)
     };
 }
 
 
 function cutOut(input, key = 1) { //Cut & return key from hash/pos ...cut BEFORE att avoids duplicate
-    if (typeof input !== Array && key in input) {
+    if (!Array.isArray(input) && key in input) {
         // Check for key in hash.hash (normalized into its own obj), extract/remove/return it
         const value = input[key]; // Extract the value associated
         delete input[key]; // Remove from hash (prevent duplicates)
         return value;
         //OR pass the positional args array with an index number, or default 1 (second)
-    } else if (typeof key === Number) { return input.splice(key, 1)[0] }
+    } else if (typeof key === 'number') { return input.splice(key, 1)[0] }
     else { return false }
 }
 
-
+/*
 function attributes(hash, pos) { // Stringify remaining attributes
     // {{tag arg att=thing thing2}} = <... att="thing" thing2>
     let attributes = [];
@@ -41,6 +44,26 @@ function attributes(hash, pos) { // Stringify remaining attributes
     for (const [key, value] of Object.entries(hash)) {
         attributes.push(`${key}="${value}"`);
     }
+    return attributes.join(" ");
+} */
+//Optimized:
+function attributes(hash, pos) {
+    // Pre-allocate approximate size if possible
+    const attSize = (pos.length - 1) + Object.keys(hash).length;
+    const attributes = new Array(attSize);
+    let idx = 0;
+
+    // Single loop for positionals
+    let i = pos.length;
+    while (--i > 0) { attributes[idx++] = pos[i]; }
+
+    // Direct object iteration
+    for (const key in hash) {
+        if (hash.hasOwnProperty(key)) {
+            attributes[idx++] = `${key}="${hash[key]}"`;
+        }
+    }
+
     return attributes.join(" ");
 }
 
@@ -280,7 +303,7 @@ export const help = {
         let e = cutOut(hash, "e") || 'div'
         let m = cutOut(hash, 'm') || 'GET'
         let l = cutOut(pos, 1)
-        let lazy = cutOut(hash, 'lazy') || l==='lazy'?l:'' //if lazy=true or 1 or is 
+        let lazy = cutOut(hash, 'lazy') || l === 'lazy' ? l : '' //if lazy=true or 1 or is 
         let a = attributes(hash, pos) || '';
         return HBstr(`${lazy ? `<div x-data="{ shown: false }" x-intersect.once="shown = true">` : ''}
         <${e} x-html="await $fetch('${i}', method='${m}')" ${lazy ? `x-show="shown"` : ''} ${a}></${e}>
