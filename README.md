@@ -1,3 +1,5 @@
+Archiving due to lack of interest in JS backend. Golang template syntax is so similar, I'd rather implement these tags as custom functions using Go... if it really helped the development flow any. ;) T'was a good learning experience.
+
 # Alpine.Handlebars
 If you like [Alpine.js](https://alpinejs.dev) & [Handlebars.js](https://handlebarsjs.com/) then you'll love this set of Handlebars helpers for common Alpine.js patterns. Write server-side rendered templates, layouts, and partials, with reactive client-side logic, together and in the same syntax. Use component-based architecture with partials and AJAX calls without page reloads. Make Hypertext Great Again :P
 
